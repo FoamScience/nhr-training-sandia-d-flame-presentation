@@ -1,0 +1,447 @@
+defaults:
+  - meta: config.yaml
+  - default_styling: config.yaml
+  - _self_
+
+version: 0.0.8
+
+scene: 2D
+
+slides:
+
+  - title: We'll look at...
+    number: "   "
+    content:
+      - type: items
+        bullets:
+          - "Bayesian Optimization: Practical introduction"
+          - "Bayesian Optimization: Benefits and Challenges"
+          - "Bayesian Optimization Workflow"
+          - "foamBO: Bayesian Optimization on OpenFOAM cases"
+          - "foamBO: Some use cases"
+        distance: 4
+        anchor: "{{ title }}"
+      - type: text
+        text: "Focusing on..."
+        next_to:
+          target: "{{ last }}"
+          dir: 2*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: false
+      - type: items
+        bullets:
+          - foamBO as a means to streamline OpenFOAM case parametrization
+          - Insights into objective trade-offs from Bayesian Algorithms
+        distance: 2
+        anchor: "{{ last }}"
+
+  - title: "Bayesian Optimization: Practical introduction"
+    number: "1❱"
+    content:
+      - type: text
+        text: "Why Bayesian Optimization...?  @@balandat2020"
+        next_to:
+          target: "{{ title }}"
+          dir: 2*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: false
+      - type: items
+        bullets:
+          - CFD simulations are naturally Computationally Expensive, and High-dimensional
+          - Often, simulations feature noisy or non-deterministic behavior
+        distance: 2
+        anchor: "{{ last }}"
+        weights:
+          - text: "Computationally Expensive"
+            weight: BOLD
+          - text: "High-dimensional"
+            weight: BOLD
+      - type: text
+        text: "Objective functions of this talk"
+        next_to:
+          target: "{{ last }}"
+          dir: 2*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: false
+      - type: items
+        bullets:
+          - Understand how classic BO algorithms work in practice
+          - Understand its potential for Combustion-related research
+        distance: 2
+        anchor: "{{ last }}"
+
+  - title: "Bayesian Optimization: Benefits and Challenges"
+    number: "2❱"
+    content:
+      - type: items
+        bullets:
+          - Faster convergence, less objective function (OF) evaluations @@roussel2024
+          - Can handle somewhat large search spaces efficiently @@mohit2021
+          - Can handle noisy/stochastic objective functions well enough
+          - End up with surrogate models, with uncertainty estimates!
+          - Convergence metrics based on probability of improvement
+        distance: 4
+        anchor: "{{ title }}"
+      - type: items
+        bullets:
+          - "↓ Easy to get stuck at local optima!"
+          - "↓ Cost for updating surrogates can be too high for high-dimentional problems"
+        distance: 15
+        anchor: "{{ title }}"
+        colors:
+          - text: "↓"
+            color: self.secondary_color
+      - type: reset
+      - type: items
+        bullets:
+          - Acquisition functions balance exploration and exploitation
+          - Eg. Expected Improvement (EI) -> max. expected improvement over best observation
+          - Eg. Knowledge Gradient (KG) -> very expensive OFs, gain max information
+        distance: 4
+        anchor: "{{ title }}"
+      - type: items
+        bullets:
+          - Assuming? OF values are samples from  a Gaussian Process
+          - "Gaussian process: connect dots smoothly from known data points"
+          - "'smoothly' as in: can be modeled with a normal distribution"
+          - Can also switch to random forests, ... etc
+        distance: 2
+        anchor: "{{ last }}"
+
+  - title: Bayesian Optimization Workflow
+    number: "3❱"
+    hook:
+      name: bayes_opt
+      filename: hooks/bayes_opt.py
+      functions: bayes_opt_step
+      num_samples: 3
+      acquisition_function: "ei" # or 'ucb' or 'poi'
+      kappa: 5 # default: 2.576, higher favores least explored spaces 
+      n_iters: 20
+      benchmark:
+        type: text
+        text: foamBO configuration for such a problem
+        next_to:
+          target: "{{ title }}"
+          dir: 2*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: true
+      parameters:
+        type: code
+        language: yaml
+        line_numbers: false
+        code: |
+          parameters:
+            x:
+              type: range
+              value_type: float
+              bounds: [-200, 200]
+              log_scale: False
+          scopes:
+            "/FxDict":
+              x: "x"
+        to_edge: LEFT
+        shift: 0.5*DOWN
+      objectives:
+        type: code
+        language: yaml
+        line_numbers: false
+        code: |
+          objectives:
+            F1:
+              mode: 'shell'
+              # command must write a scalar to stdout
+              command: './F --F F1 --k 1 --m 0 --lb 0.01'
+              # try to focus trials around this value
+              threshold: 0
+              minimize: True
+              lower_is_better: True
+        to_edge: RIGHT
+        shift: 0.5*DOWN
+
+  - title: "foamBO: Bayesian Optimization on OpenFOAM cases"
+    number: "4❱"
+    hook:
+      name: foam_bo
+      filename: hooks/foam_bo.py
+      functions: foam_bo_step
+      pareto:
+        type: items
+        bullets:
+          - Pareto-frontier points
+          - Optimize conflicting objectives
+          - Acquisition functions are important
+        distance: 4
+        anchor: "{{ title }}"
+      feature_importance:
+        type: items
+        bullets:
+          - Which parameters are most important?
+          - To which objectives?
+        distance: 11
+        anchor: "{{ title }}"
+
+  - title: "foamBO: Some use cases"
+    number: "5❱"
+    content:
+      - type: image
+        image: flame.png
+        scale: 0.8
+        to_edge: RIGHT
+        shift: 0.5*UP
+        no_next_slide: true
+      - type: text
+        text: "Sandia Flame D @@schneider2003"
+        next_to:
+          target: "{{ title }}"
+          dir: 3*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: true
+      - type: items
+        bullets:
+          - Can we improve on (some) default settings for the OpenFOAM tutorial?
+          - (CH4, CO2, T, U) errors to experiment @@flameD2003 and exec. time as objectives
+          - searching for better turbulence models, chemistry and combustion mechanisms
+        distance: 2
+        anchor: "{{ last }}"
+      - type: items
+        bullets:
+          - "Convergence: probability of improvement in next trial falls under 1%" 
+          - "Convergence: ~30 trials, Search space size: 180"
+        distance: 2
+        anchor: "{{ last }}"
+        colors:
+          - text: "https://foamscience.github.io/SandiaD-LTS-Bayesian-Optimization"
+            color: self.main_color
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+      - type: reset
+      - type: text
+        text: "Sandia Flame D"
+        next_to:
+          target: "{{ title }}"
+          dir: 3*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: true
+      - type: code
+        language: yaml
+        line_numbers: false
+        code: |
+          parameters:
+            turbulenceModel:
+              type: choice
+              value_type: str
+              values: ['laminar', 'kEpsilon', 'LaunderSharmaKE']
+              is_ordered: true
+            meshResolution:
+              type: range
+              value_type: int
+              bounds: [3, 10]
+              log_scale: false
+            # ... more
+        to_edge: LEFT
+        shift: 0.5*DOWN
+      - type: code
+        language: yaml
+        line_numbers: false
+        code: |
+          objectives:
+            TemperatureMSE:
+              mode: 'shell'
+              command: "pvpython postprocess.py --T --decomposed"
+              threshold: 5e-2
+              minimize: True
+              lower_is_better: True
+            ExecutionTime:
+              mode: 'shell'
+              command: "./getExecutionTime.sh"
+              threshold: 3000
+              minimize: True
+              lower_is_better: True
+            # ... more
+        to_edge: LEFT
+        shift: 0.5*DOWN
+      - type: reset
+      - type: plot
+        csv_file: SandiaFlameD_report.csv
+        axes_color: BLACK
+        x_length: 10
+        x_range: [0, 50]
+        y_length: 4
+        y_range: [0.0, 1.0]
+        y_axis_label: "RRMSE"
+        columns: [ "trial_index", "CH4MSE", "CO2MSE", "TemperatureMSE", "VelocityMSE" ]
+        colors:
+          "CH4MSE": self.main_color
+          "CO2MSE": self.warn_color
+          "TemperatureMSE": self.secondary_color
+          "VelocityMSE": self.important_color
+        kind: scatter
+        labels:
+          "CH4MSE": 
+            shift: 2*LEFT+2*UP
+          "CO2MSE": 
+            shift: 2*LEFT+1.5*UP
+          "TemperatureMSE": 
+            shift: 2*LEFT+UP
+          "VelocityMSE": 
+            shift: 2*LEFT+0.5*UP
+        to_edge: LEFT
+      - type: reset
+      - type: plot
+        csv_file: SandiaFlameD_report.csv
+        axes_color: BLACK
+        x_length: 10
+        x_range: [0, 50]
+        y_length: 4
+        y_range: [0, 10000]
+        y_axis_label: "Execution Time [s]"
+        columns: [ "trial_index", "ExecutionTime" ]
+        colors:
+          "ExecutionTime": self.main_color
+        kind: scatter
+        labels:
+          "ExecutionTime": 
+            shift: 5*RIGHT
+        to_edge: LEFT
+      - type: reset
+      - type: plot
+        csv_file: SandiaFlameD_feature_importance_report.csv
+        axes_color: BLACK
+        x_length: 8
+        x_range: [0, 5]
+        y_length: 4
+        y_range: [0, 60]
+        y_axis_label: "Relative Feature Importance [%]"
+        columns: [ "Objective", "chemistryType", "chemistryMechanism", "turbulenceModel", "meshResolution", "combustionModel" ]
+        colors:
+          "chemistryType": self.main_color
+          "chemistryMechanism": self.secondary_color
+          "turbulenceModel": self.warn_color
+          "meshResolution": self.important_color
+          "combustionModel": self.text_color
+        kind: line
+        labels:
+          "chemistryMechanism": 
+            shift: 0.5*UP
+          "turbulenceModel": 
+            shift: 0.5*DOWN
+          "meshResolution": 
+            shift: UP
+          "combustionModel": 
+            shift: UP
+        x_labels: "objective_id"
+        to_edge: LEFT
+      - type: reset
+      - type: plot
+        csv_file: SandiaFlameD_frontier_report.csv
+        axes_color: BLACK
+        x_length: 10
+        x_range: [0, 10000]
+        y_length: 4
+        y_range: [0, 0.2]
+        y_axis_label: "CO2MSE"
+        columns: [ "ExecutionTime", "CO2MSE"]
+        colors:
+          "CO2MSE": self.main_color
+        kind: scatter
+        labels:
+          "CO2MSE": 
+            shift: 5*RIGHT
+        to_edge: LEFT
+      - type: text
+        text: "Pareto Frontier"
+        font_size: "self.s_size"
+        shift: 3*UP
+        no_next_slide: true
+      - type: text
+        text: "turbulenceModel: kEpsilon"
+        font_size: "self.vs_size"
+        shift: 2*UP+3*LEFT
+        no_next_slide: true
+      - type: text
+        text: "chemistryMechanism: DRM22"
+        font_size: "self.vs_size"
+        shift: 1.6*UP+3*LEFT
+        no_next_slide: true
+      - type: text
+        text: "chemistryType: EulerImplicit"
+        font_size: "self.vs_size"
+        shift: 1.2*UP+3*LEFT
+        no_next_slide: true
+      - type: text
+        text: "combustionModel: EDC"
+        font_size: "self.vs_size"
+        shift: 0.8*UP+3*LEFT
+        no_next_slide: true
+      - type: text
+        text: "meshResolution: 4"
+        font_size: "self.vs_size"
+        shift: 0.4*UP+3*LEFT
+      - type: text
+        text: "turbulenceModel: kEpsilon"
+        font_size: "self.vs_size"
+        shift: 0.6*UP+2.5*RIGHT
+        no_next_slide: true
+      - type: text
+        text: "chemistryMechanism: GRI3"
+        font_size: "self.vs_size"
+        shift: 0.2*UP+2.5*RIGHT
+        no_next_slide: true
+      - type: text
+        text: "chemistryType: EulerImplicit"
+        font_size: "self.vs_size"
+        shift: 0.2*DOWN+2.5*RIGHT
+        no_next_slide: true
+      - type: text
+        text: "combustionModel: EDC"
+        font_size: "self.vs_size"
+        shift: 0.6*DOWN+2.5*RIGHT
+        no_next_slide: true
+      - type: text
+        text: "meshResolution: 5"
+        font_size: "self.vs_size"
+        shift: DOWN+2.5*RIGHT
+        no_next_slide: true
+      - type: reset
+      - type: text
+        text: "Annular Thermal Mixer"
+        next_to:
+          target: "{{ title }}"
+          dir: 4*DOWN
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT
+        no_next_slide: true
+      - type: items
+        bullets:
+          - Can we improve on blade design of the OpenFOAM tutorial?
+          - Power consumption, mixing quality, and blade durability for objectives
+          - searching for optimal blade number and blade geometrical properties
+        distance: 2
+        anchor: "{{ last }}"
+      - type: items
+        bullets:
+          - "Link: https://github.com/FoamScience/mixer-bayesian-optimization"
+          - "Convergence: ~70 trials, Search space size: ~14.7k"
+        distance: 2
+        anchor: "{{ last }}"
+        colors:
+          - text: "https://github.com/FoamScience/mixer-bayesian-optimization"
+            color: self.main_color
+        align_to:
+          target: "{{ title }}"
+          dir: LEFT

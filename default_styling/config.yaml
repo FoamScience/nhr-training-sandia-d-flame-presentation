@@ -1,0 +1,38 @@
+color_presets:
+  main: color.BLUE_E
+  bg: color.GRAY_A
+  secondary: "#e83e3e"
+  warn: "#5aa603"
+  important: "#6495ed"
+  text: color.BLACK
+  opacity: 0.3
+font:
+  family: "FiraMono Nerd Font"
+  very_small: 14
+  small: 18
+  mid: 20
+  big: 26
+itemize:
+  icon: "•"
+  distance: 1.5
+diagram:
+  buff: 0.3
+code:
+  line_spacing: 0.65
+  tabs: 4
+  background: window
+  style: manni
+camera:
+  frame_rate: 90
+runtime:
+  Transform: 0.5
+  FadeIn: 0.5
+  FadeOut: 0.5
+  DrawBorderThenFill: 0.8
+footer:
+  slide_counter: True
+bibliography:
+  style: alpha
+  font_size_multiplier: 0.9
+  line_length: 6
+  line_color: "self.main_color"
