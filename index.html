@@ -1,0 +1,779 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Multi-objective Bayesian Optimization for Combustion CFD</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/zenburn.min.css">
+
+    <!-- <link rel="stylesheet" href="index.css"> -->
+  <meta name="application-name" content="Multi-objective Bayesian Optimization for Combustion CFD">
+<meta name="subject" content="NHR4CES Training - Numerical methods in combustion, Mohammed Elwardi Fadeli, Nov. 2024">
+<meta name="abstract" content="NHR4CES Training - Numerical methods in combustion, Mohammed Elwardi Fadeli, Nov. 2024">
+<meta name="twitter:title" content="Multi-objective Bayesian Optimization for Combustion CFD">
+<meta name="description" content="NHR4CES Training - Numerical methods in combustion, Mohammed Elwardi Fadeli, Nov. 2024">
+<meta name="twitter:description" content="NHR4CES Training - Numerical methods in combustion, Mohammed Elwardi Fadeli, Nov. 2024">
+<meta name="author" content="Mohammed Elwardi Fadeli">
+<meta name="twitter:creator" content="Mohammed Elwardi Fadeli">
+<meta name="twitter:image" content="https://foamscience.github.io/nhr-training-sandia-d-flame-presentation/thumbnail.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Multi-objective Bayesian Optimization for Combustion CFD">
+<meta property="og:description" content="NHR4CES Training - Numerical methods in combustion, Mohammed Elwardi Fadeli, Nov. 2024">
+<meta property="article:author" content="Mohammed Elwardi Fadeli">
+<meta property="og:image" content="https://foamscience.github.io/nhr-training-sandia-d-flame-presentation/thumbnail.png">
+</head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides"><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/f6c053b1b3d27009c035ac91f3895f7cce42ec8ebfacf40e5cb16736e2c4796f.mp4"
+              data-background-video-muted
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/240c2ba5225435a01d79e27edc1457781d9c5b7046cda628b1b9812999ee54a2.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/603aa71ab16487a7523c028a20d39b941305dcc3a7d9f7ccf165997bc54a8c23.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/0a52f961e8f875015f1066de134cf2bcbd9a407214b5e424558d67d400f66880.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/cd43515a51917566cb9e0f4c053b647e1e634869c71b6608001f906e8d9bb390.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/35f3d26184202fb93ae565feb95b5f6390dab2f47effd951e554a2d2b1a62a2f.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/61ff5f368d0166959f35a0155cff7aa6c0f842d05e315b0a458795f181f99766.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/675f5dd9dc73f6d58d9ca58e536d3e753f5dbc87970813733f7f6637e626fe9a.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/4189a14285542cefddd2c2600825fe7e23aa8bae4f25d4a14132bef3c1fe55dc.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/83b95cb76d642132c65bc791a02e5d04f1fd7b728a62dad3e2bf767f186ee324.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/cdf9050d13d22057b42f48eebc921a93247399fed6fc52ebf00bacd650984677.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/6b1867c9486a249a3dd5215c1d2925a137285a96899d946091dffa829753292a.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/35cbf1a61712a9004c64e2d131c8d0594c0248bb2b6223076c492d1312439444.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/190f91b4071f9b7912af13d34a1de1f95e18dc9ccb0b898a8b87c1a046cf7467.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/47edcbefc2e3b0ff0c21b7096996c5d055663762d6a4cf9641698f16f8ec817b.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/4c5fbace1de84c28d60e2bc6b931f9fc6b57f107bade7543c56ac9b8a365cc5a.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/a5f37dfaa19474e0ad0a8df3b1f51a5341d222b896ddb68fc1ef3ccf87f38c45.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/dfbdcb99131e95eb133c00f035af55b4ba56b92b12695d92479349080c892c70.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/f524560c747b61bba3c329dc6366e8be00aa3f5f23ba72dfecb9270751b925f3.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/8b8dd9e4db3a246a090e22553bb4ce0be2315c2bdc6aad74faa49c7aa5200821.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/5dca7b4957c0c78d0d98922272980edd92695d7dba0c506b55789371f874ce3f.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/c7c64a546244c5c2af936ce6e22320850ee8646c3d634c63db0fbe66997b2018.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/c7248198f94962046a85f9aea8e07129686b3c4248359b6963fa0404c3136b48.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/3d5dcb2775ee38ebaa2c12fa7539a3327e83a3bdbec60a5a360eca8d33a73abb.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/84898c66b97a7267a85e7f772d05afc90be39ad62e4d09f96f047adb1964400c.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/c691efab5163d8e1ff6aebbfd944f8e0181cd93976b94f98486b6eb5a3a06448.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/1e2a5a247e0bcd6a8273b6b4600eba1d6dd50330c6caa4f11ea2e949e49c7190.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/208fbd813e7794b82a1551bb483665e6fa35015efa4c4d85fafe1ff3627a6125.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/5667d511d276286ebab745cff2e882e88c6e0429c8c3183ef870009ee1d004e0.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/76b5701e72774e6f7fdee12e97559d7b6e277048990017cc9a1be5231985345b.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/1ec16b020d1627850bc31711a013edb53541ce7af06d1972fc2196eec2464994.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/6d7ceead8253362610c43300273b46402eb40dedc86c2af6c8beae6b5393f340.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/7f9bdc32d68ec6e9713549b9d6ef53ea11d1d22e3505bfa20c23ac64341f3e03.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/3c78f3c09c3858ee58a99aeaf4019d6cdc5fa15a3f7617e16935cfd066c5a117.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/9c7ea47e599700543a52a342a12a5da9c3ecec82b61021d9802f350ed5dcb9ab.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/0d9edccaa2c8138ead9f596b94ee6bfe2ee261ec88e074a11b0260851f32025c.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/4adc0551172e405d1468f3896f72c5b1d89e0d5801a40d7d29bfdb7ad9760a8d.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/8bfa084bea12cc6cd297b09370c694701359535d689043c2182badf3d6359d9f.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/4f5cf5ea28aef2bea7f17e4c2d3e367af577071d5ff4a36301f38802f0aa3693.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/bfd446cec0e51ebdeab3cb592ce2ae471db4917cb22bfb3acd6435dc892be118.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/8d9e1008e42d7ed39444e24fefa4d531d12c94e51bcee6fb0a45b8890821586a.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/aadbe29177ea11dc379ec829bfec57c031fa80a01444bed9986ff064935f7432.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/58cd24819b4bc38ce2955f38f9acc8702ad1cf563dcab20bf885262830401ed6.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/23028756ede9ee3155e22c80b02e896201446a07aaab02f934c3f8210658f8bd.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/ad9a2f939974dd595428f75a8aea34aac1c499a4f8bb1864dc2b38357f2dc9ef.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/5c0b84476edea30c0bb3b507d7dcb8a3affadd051003fd4b69f0f1aef5b54a0c.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/282cd48cc04eecb6a786887b8439d696779d1728b9b227d4e0dfa9027a489f48.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/4f1a868e18ff6e54380a760ffda5be6cc3e2729e0c34b365429854c2f02ea7e5.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/745da841e225cb78db77f66eb1b13336bc969a4fe2ccfc9731e7bedb9f378398.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/d34199c4ddcb2c408bf2d5b3e8da8531ea6ff564667db56328a0b0fe2dc270eb.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/2ddc144e0661eda6b60b98ffa9c2689d746f83f9963a4a3de1da8f81c1f64fdc.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/295a06faf61763ad22ce0865cdea24909bb7eabff5bec50ed03c3578d57d7cf5.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/b4d11680c761c81a8a1602b532d99af8971ac2096b303614aafab1a9c7f290c7.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/9f1594e1f4c61a22496104476d48e05d1e562c37156bf0bee9cab9e2295ccc4d.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/0c5eb8df737d707e9825815c4ba74d3dc64ba5a29dbcb84726bd797aca823505.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/cd3128d4d7b1837f6a2f30d5b995a790d07ff5f8a7964f66da769f0a6c8358f3.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/99a7a46b73ed0292956833f0da7b6cfcf48a598701b1954802b7a98f871a5fbc.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/9f9525e3d9d59e0df51f7daca4fb71a16337631cbae55ea9572debd749c0b987.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/a779cfc4d25d274670d342d9af6fefb191e3ae8385a2706463893b36cad09680.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/3a816b364bab4cf8444d2541f80ac07c6b604073b0faf2db6333de3bda4d7c48.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/2018eb876b2eaecb17fa8c87880900ec6227a4947384e474a2cf5ed0dadcf9c4.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/70c43646e8fc0e591d5e172ec6861335e851e59ba386e89326cf12b1290544be.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/0912cc9688169fecdb5c52ceb803f62322815d555a02d22d025b1baefe4bc6fb.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/e0f4626027d27e7c66f111cf7e1c4f6373f8f8d772a51c0703e2fdb5907fcbae.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/ac3fd698bfffdd807b86428ea6d94b329f60c2051aeb9b0579fe5751b4329913.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/6b117509170422da65865fc7ebd5f9d9e1f09b99c17f3a08871e451643922e23.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/7df82c42404a599289dc854ad0e54b4e43b70fbb87240134b1a6a66dcfd75114.mp4"
+              
+              >
+              
+            </section><section
+              data-background-size='contain'
+              data-background-color="#ddd"
+              data-background-video="YamlPresentation_assets/0aa5c3a7d1b340a0626acee1e60d50aa416f8193462135bdee6b5613d3f7f410.mp4"
+              
+              >
+              
+            </section></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+
+    <!-- To include plugins, see: https://revealjs.com/plugins/ -->
+
+    <!-- <script src="index.js"></script> -->
+    <script>
+      Reveal.initialize({
+        
+        // The "normal" size of the presentation, aspect ratio will
+        // be preserved when the presentation is scaled to fit different
+        // resolutions. Can be specified using percentage units.
+        width: '100%',
+        height: '100%',
+
+        // Factor of the display size that should remain empty around
+        // the content
+        margin: 0.04,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 2.0,
+
+        // Display presentation control arrows
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        // - true:    Show slide number
+        // - false:   Hide slide number
+        //
+        // Can optionally be set as a string that specifies the number formatting:
+        // - "h.v":   Horizontal . vertical slide number (default)
+        // - "h/v":   Horizontal / vertical slide number
+        // - "c":   Flattened slide number
+        // - "c/t":   Flattened slide number / total slides
+        //
+        // Alternatively, you can provide a function that returns the slide
+        // number for the current slide. The function should take in a slide
+        // object and return an array with one string [slideNumber] or
+        // three strings [n1,delimiter,n2]. See #formatSlideNumber().
+        slideNumber: false,
+
+        // Can be used to limit the contexts in which the slide number appears
+        // - "all":      Always show the slide number
+        // - "print":    Only when printing to PDF
+        // - "speaker":  Only in the speaker view
+        showSlideNumber: 'all',
+
+        // Use 1 based indexing for # links to match slide number (default is zero
+        // based)
+        hashOneBasedIndex: false,
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: false,
+
+        // Push each slide change to the browser history.  Implies `hash: true`
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Optional function that blocks keyboard events when retuning false
+        //
+        // If you set this to 'focused', we will only capture keyboard events
+        // for embedded decks when they are in focus
+        keyboardCondition: null,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // Changes the behavior of our navigation directions.
+        //
+        // "default"
+        // Left/right arrow keys step between horizontal slides, up/down
+        // arrow keys step between vertical slides. Space key steps through
+        // all slides (both horizontal and vertical).
+        //
+        // "linear"
+        // Removes the up/down arrows. Left/right arrows step through all
+        // slides (both horizontal and vertical).
+        //
+        // "grid"
+        // When this is enabled, stepping left/right from a vertical stack
+        // to an adjacent vertical stack will land you at the same vertical
+        // index.
+        //
+        // Consider a deck with six slides ordered in two vertical stacks:
+        // 1.1    2.1
+        // 1.2    2.2
+        // 1.3    2.3
+        //
+        // If you're on slide 1.3 and navigate right, you will normally move
+        // from 1.3 -> 2.1. If "grid" is used, the same navigation takes you
+        // from 1.3 -> 2.3.
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the question-mark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: true,
+
+        // Global override for autolaying embedded media (video/audio/iframe)
+        // - null:   Media will only autoplay if data-autoplay is present
+        // - true:   All media will autoplay, regardless of individual setting
+        // - false:  No media will autoplay, regardless of individual setting
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes
+        // - null:   Iframes with data-src AND data-preload will be loaded when within
+        //           the viewDistance, iframes with only data-src will be loaded when visible
+        // - true:   All iframes with data-src will be loaded when within the viewDistance
+        // - false:  All iframes with data-src will be loaded only when visible
+        preloadIframes: null,
+
+        // Can be used to globally disable auto-animation
+        autoAnimate: true,
+
+        // Optionally provide a custom element matcher that will be
+        // used to dictate which elements we can animate between.
+        autoAnimateMatcher: null,
+
+        // Default settings for our auto-animate transitions, can be
+        // overridden per-slide or per-element via data arguments
+        autoAnimateEasing: 'ease',
+        autoAnimateDuration: 1.0,
+        autoAnimateUnmatched: true,
+
+        // CSS properties that can be auto-animated. Position & scale
+        // is matched separately so there's no need to include styles
+        // like top/right/bottom/left, width/height or margin.
+        autoAnimateStyles: ['opacity', 'color', 'background-color', 'padding', 'font-size', 'line-height', 'letter-spacing', 'border-width', 'border-color', 'border-radius', 'outline', 'outline-offset'],
+
+        // Controls automatic progression to the next slide
+        // - 0:      Auto-sliding only happens if the data-autoslide HTML attribute
+        //           is present on the current slide or fragment
+        // - 1+:     All slides will progress automatically at the given interval
+        // - false:  No auto-sliding, even if data-autoslide is present
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding (defaults to navigateNext)
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // Opens links in an iframe preview overlay
+        // Add `data-preview-link` and `data-preview-link="false"` to customize each link
+        // individually
+        previewLinks: false,
+
+        // Exposes the reveal.js API through window.postMessage
+        postMessage: true,
+
+        // Dispatches all reveal.js events to the parent window through postMessage
+        postMessageEvents: false,
+
+        // Focuses body when page changes visibility to ensure keyboard shortcuts work
+        focusBodyOnPageVisibilityChange: true,
+
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'none', // none/fade/slide/convex/concave/zoom
+
+        // The maximum number of pages a single slide can expand onto when printing
+        // to PDF, unlimited by default
+        pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
+
+        // Prints each fragment on a separate slide
+        pdfSeparateFragments: true,
+
+        // Offset used to reduce the height of content within exported PDF pages.
+        // This exists to account for environment differences based on how you
+        // print to PDF. CLI printing options, like phantomjs and wkpdf, can end
+        // on precisely the total height of the document whereas in-browser
+        // printing has to end one pixel before.
+        pdfPageHeightOffset: -1,
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000
+      });
+
+      
+    </script>
+
+    
+  </body>
+</html>
