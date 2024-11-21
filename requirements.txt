@@ -1,0 +1,2 @@
+manim-present==0.0.8
+bayesian-optimization==1.5.1
